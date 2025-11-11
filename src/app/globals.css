@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #f4f4f4;
+  --primary: #0BB3A4;
+  --card: hsl(0, 0%, 100%);
+  --footer: #353535;
   --foreground: #171717;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-card: var(--card);
+  --color-footer: var(--footer);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+body{
+  width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--background);
+  min-height: 100vh;
+}
+
+.container{
+  @apply w-[85%] max-md:w-[90%] max-sm:w-[95%] !mx-auto !my-0
+}
+
+.btn{
+  @apply flex items-center transform transition-all duration-300 justify-center text-lg !px-3 !py-2 bg-primary text-white rounded-sm font-bold text-center cursor-pointer
+}
+
+.btn:hover .icon{
+  transform: translateX(7px);
+}
+
+.image{
+  background-image: url("/the-books.jpg");
+  background-repeat: no-repeat;
+}
+
+.div-cart{
+  @apply w-full grid grid-cols-2 !gap-4
+}
+.input-cart-buy{
+  @apply border border-neutral-400 rounded !px-3 !py-2  w-full outline-primary
 }
