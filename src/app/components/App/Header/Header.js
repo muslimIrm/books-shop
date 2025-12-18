@@ -19,7 +19,7 @@ const Header = () => {
                 <div className="container !py-5">
                     <div className="w-full flex items-center justify-between">
                         <div className="min-w-45">
-                            <h1 className="text-white text-center text-3xl max-md:text-2xl max-sm:text-xl font-sans font-bold">Muslim Shop</h1>
+                            <Link href={"/"} className="text-white text-center text-3xl max-md:text-2xl max-sm:text-xl font-sans font-bold">Muslim Shop</Link>
                         </div>
                         <div className="flex !gap-4 items-center justify-center">
                             <div onClick={handleOpenModel} className="bg-white rounded-md !px-2 flex items-center justify-center h-9 w-70 max-md:w-50 max-sm:w-30 max-[20rem]:w-15">

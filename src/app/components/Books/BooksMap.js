@@ -9,7 +9,7 @@ const BooksMap = ({ data }) => {
             {
                 booksData.length > 0 && booksData.map((book, i) => {
 
-                    return (<CardBook key={i} image={book.image} title={book.title} evaluation={book.evaluation} price={book.price} description={book.description} />)
+                    return (<CardBook key={i} link={book._id} image={book.image} title={book.title} evaluation={book.evaluation} price={book.price} description={book.description} />)
 
                 })
             }

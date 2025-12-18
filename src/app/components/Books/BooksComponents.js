@@ -2,52 +2,74 @@
 
 const { default: Link } = require("next/link");
 import { useSearchParams } from 'next/navigation'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaChevronLeft } from "react-icons/fa";
 import BooksMap from './BooksMap';
-
+import axios from 'axios';
+import Url from '@/app/Url';
+import CardBook from '../App/Books/Card';
+import Spinner from '../Spinner/Spinner';
 const BooksComponent = () => {
     const searchParams = useSearchParams()
 
-    const [books, setBooks] = useState([
-        {
-            title: "Rich Dad Poor Dad",
-            price: "14.99",
-            description: "lorem dolar eilte, solar no cool kuto thaition.",
-            image: "https://m.media-amazon.com/images/I/81bsw6fnUiL._AC_UF1000,1000_QL80_.jpg",
-            evaluation: "4"
-        },
-        {
-            title: "Think and Grow Rich",
-            price: "10.99",
-            description: "Think and Grow Rich has been called the Granddaddy of All Motivational Literature. It was the first book to boldly ask, What makes a winner? The man who asked and listened for the answer, Napoleon Hill, is now counted in the top ranks of the world's winners himself.",
-            image: "https://m.media-amazon.com/images/I/61IxJuRI39L._SY385_.jpg",
-            evaluation: "7"
-        },
-        {
-            title: "Rich Dad Poor Dad",
-            price: "14.99",
-            description: "lorem dolar eilte, solar no cool kuto thaition.",
-            image: "https://m.media-amazon.com/images/I/81bsw6fnUiL._AC_UF1000,1000_QL80_.jpg",
-            evaluation: "4"
-        },
-        {
-            title: "Think and Grow Rich",
-            price: "10.99",
-            description: "Think and Grow Rich has been called the Granddaddy of All Motivational Literature. It was the first book to boldly ask, What makes a winner? The man who asked and listened for the answer, Napoleon Hill, is now counted in the top ranks of the world's winners himself.",
-            image: "https://m.media-amazon.com/images/I/61IxJuRI39L._SY385_.jpg",
-            evaluation: "7"
-        },
-        {
-            title: "Rich Dad Poor Dad",
-            price: "14.99",
-            description: "lorem dolar eilte, solar no cool kuto thaition.",
-            image: "https://m.media-amazon.com/images/I/81bsw6fnUiL._AC_UF1000,1000_QL80_.jpg",
-            evaluation: "4"
-        },
-    ])
+    const [spinnerState, setSpinnerState] = useState(true)
+    const [Error, setError] = useState({ state: false, message: "" })
+    const [books, setBooks] = useState([])
     const search = searchParams.get(("type"))
-    console.log(search)
+    const [params, setParams] = useState({ limit: 20, page: 1, totalPages: 1 })
+    useEffect(() => {
+        const fetch = async () => {
+            setSpinnerState(true)
+            setError((p) => { return { ...p, state: false } })
+            try {
+
+                const result = await axios.get(`${Url}/books?limit=${params.limit}&page=${params.page}&sort=${search}`)
+                const data = result.data.Books
+                console.log(result.data)
+                const booksAfterAddData = [...books, ...data]
+                setBooks(booksAfterAddData)
+                setParams((prev) => { return { ...prev, totalPages: result.data.totalPages } })
+
+            } catch (error) {
+                console.log(error)
+                setError({ state: true, message: error.message ? error.message : "There is Error, try agin later!" })
+
+
+
+            } finally {
+                setSpinnerState(false)
+            }
+        }
+        fetch()
+    }, [params.page])
+    const handleTry = ()=>{
+        const fetch = async () => {
+            setSpinnerState(true)
+            setError((p) => { return { ...p, state: false } })
+            try {
+
+                const result = await axios.get(`${Url}/books?limit=${params.limit}&page=${params.page}&sort=${search}`)
+                const data = result.data.Books
+                console.log(result.data)
+                const booksAfterAddData = [...books, ...data]
+                setBooks(booksAfterAddData)
+                setParams((prev) => { return { ...prev, totalPages: result.data.totalPages } })
+
+            } catch (error) {
+                console.log(error)
+                setError({ state: true, message: error.message ? error.message : "There is Error, try agin later!" })
+
+
+
+            } finally {
+                setSpinnerState(false)
+            }
+        }
+        fetch()
+
+    }
+    useEffect(() => { console.log(spinnerState) }, [spinnerState])
+
     return (
         <div className="w-full">
             <div className="container">
@@ -60,7 +82,28 @@ const BooksComponent = () => {
                             <h1 className='text-3xl max-md:text-2xl font-bold capitalize'>{search}</h1>
                         </div>
                         <div className='w-full'>
-                            <BooksMap data={books} />
+
+
+                            <div className="flex w-full justify-self-center !gap-x-2 !gap-y-4 flex-wrap">
+                                {
+                                    books.length > 0 && books.map((book, i) => {
+
+                                        return (<CardBook key={i} link={book._id} image={book.image} title={book.title} evaluation={book.evaluation} price={book.price} description={book.description} />)
+
+                                    })
+                                }
+                            </div>
+                            {
+                                spinnerState && <Spinner />
+                            }
+                            {
+                                Error.state&& <p className='w-full text-center text-red-400'>{Error.message}</p>
+                            }
+
+                            <div className='w-full flex justify-center items-center !py-5'>
+                                {params.totalPages != params.page ? <button onClick={() => setParams((prev) => { return { ...prev, page: prev.page + 1 } })} className='btn !text-2xl !px-15 !py-3'>More</button> : <div></div>}
+                                {Error.state&&  <button onClick={handleTry} className='btn !bg-red-500 !text-xl !px-6 !py-2 '>Try agin</button> }
+                            </div>
                         </div>
                     </div>
                 </div>

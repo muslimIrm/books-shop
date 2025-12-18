@@ -1,26 +1,36 @@
 "use client"
-import { createContext, useState, useContext } from "react"
+import axios from "axios";
+import { createContext, useState, useContext, useEffect } from "react"
+import Url from "../Url";
 
 const CartContext = createContext([]);
 
 export const ContextProvider = ({ children }) => {
     const [productsCart, setProductsCart] = useState({
-        totalProduct: 1,
+        totalProduct: 0,
         products: [
-            {
 
-                title: "Rich Dad Poor Dad",
-                price: "14.99",
-                description: "lorem dolar eilte, solar no cool kuto thaition.",
-                image: "https://m.media-amazon.com/images/I/81bsw6fnUiL._AC_UF1000,1000_QL80_.jpg",
-                evaluation: "4",
-                author: "Jaims Cler",
-                pages: "413",
-                items: 1
-            }
+
         ]
     })
 
+    const [token, setToken] = useState()
+    useEffect(() => {
+        localStorage.getItem("token") ? setToken(localStorage.getItem("token")) : setToken(false)
+    }, [])
+    useEffect(() => {
+        const fetch = async () => {
+            if (token) {
+                const result = await axios.get(`${Url}/carts/my-cart`, { headers: { Authorization: `Bearer ${token}` } })
+
+                const data = result.data.cart.products
+                setProductsCart({totalProduct: data.length, products: data})
+                console.log(data)
+            }
+
+        }
+        fetch()
+    }, [token])
     return (
         <CartContext.Provider value={{ productsCart, setProductsCart }}>
             {children}
