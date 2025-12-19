@@ -1,5 +1,4 @@
 "use client"
-export const runtime = 'edge';
 import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { useCartContext } from "@/app/context/CartContext";
