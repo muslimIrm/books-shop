@@ -2,14 +2,14 @@
 
 const { default: Link } = require("next/link");
 import { useSearchParams } from 'next/navigation'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { FaChevronLeft } from "react-icons/fa";
 import BooksMap from './BooksMap';
 import axios from 'axios';
 import Url from '@/app/Url';
 import CardBook from '../App/Books/Card';
 import Spinner from '../Spinner/Spinner';
-const BooksComponent = () => {
+const BooksComponentContent = () => {
     const searchParams = useSearchParams()
 
     const [spinnerState, setSpinnerState] = useState(true)
@@ -113,4 +113,11 @@ const BooksComponent = () => {
     );
 }
 
+const BooksComponent = ()=>{
+    return(
+        <Suspense>
+            <BooksComponentContent/>
+        </Suspense>
+    )
+}
 export default BooksComponent
