@@ -65,7 +65,7 @@ const Page = () => {
             <div className="container">
                 <div className="w-full flex items-center !gap-5 max-md:flex-col">
                     <div className="flex min-w-70 w-3/12 max-md:w-7/12  overflow-hidden rounded-[2px] items-center">
-                        <img className="w-full h-full" src={book.image} />
+                        <img className="w-full h-full" src={`https://${book.image}`} />
                     </div>
                     <div className="flex flex-col !gap-3">
                         <div className="flex flex-col !gap-2">
