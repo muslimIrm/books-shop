@@ -9,13 +9,13 @@ import axios from 'axios';
 import Url from '@/app/Url';
 import CardBook from '../App/Books/Card';
 import Spinner from '../Spinner/Spinner';
-const BooksComponent = ({type}) => {
-    // const searchParams = useSearchParams()
+const BooksComponent = () => {
+    const searchParams = useSearchParams()
 
     const [spinnerState, setSpinnerState] = useState(true)
     const [Error, setError] = useState({ state: false, message: "" })
     const [books, setBooks] = useState([])
-    // const search = searchParams.get(("type")) || "lastBooks"
+    const search = searchParams.get(("type"))
     const [params, setParams] = useState({ limit: 20, page: 1, totalPages: 1 })
     useEffect(() => {
         const fetch = async () => {
@@ -23,7 +23,7 @@ const BooksComponent = ({type}) => {
             setError((p) => { return { ...p, state: false } })
             try {
 
-                const result = await axios.get(`${Url}/books?limit=${params.limit}&page=${params.page}&sort=${type}`)
+                const result = await axios.get(`${Url}/books?limit=${params.limit}&page=${params.page}&sort=${search}`)
                 const data = result.data.Books
                 console.log(result.data)
                 const booksAfterAddData = [...books, ...data]
@@ -48,7 +48,7 @@ const BooksComponent = ({type}) => {
             setError((p) => { return { ...p, state: false } })
             try {
 
-                const result = await axios.get(`${Url}/books?limit=${params.limit}&page=${params.page}&sort=${type}`)
+                const result = await axios.get(`${Url}/books?limit=${params.limit}&page=${params.page}&sort=${search}`)
                 const data = result.data.Books
                 console.log(result.data)
                 const booksAfterAddData = [...books, ...data]
@@ -79,7 +79,7 @@ const BooksComponent = ({type}) => {
                     </div>
                     <div className="w-full flex flex-col !gap-4">
                         <div className="w-full flex items-center justify-center">
-                            <h1 className='text-3xl max-md:text-2xl font-bold capitalize'>{type}</h1>
+                            <h1 className='text-3xl max-md:text-2xl font-bold capitalize'>{search}</h1>
                         </div>
                         <div className='w-full'>
 
