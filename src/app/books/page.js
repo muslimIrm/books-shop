@@ -1,6 +1,7 @@
+"use client"
 import BooksComponent from "../components/Books/BooksComponents";
 import { useSearchParams } from "next/navigation";
-export default function Books({ searchParams }) {
+export default function Books() {
     const searchParams = useSearchParams().get(("type"))
     const type =
         typeof searchParams?.type === "string"
