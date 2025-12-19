@@ -74,8 +74,9 @@ const BooksComponent = ({ sortType, title, pageBooks }) => {
                         <button onClick={handleTry} className='btn !bg-red-500 !text-lg !px-4 !py-2 '>Try agin</button>
                     </div>)
                 }
+                {!spinnerState && !Error.state &&
                 <Link href={`/books?type=${sortType}`} className="text-primary min-w-30 flex items-center justify-center !gap-3 cursor-pointer text-lg font-[600] lg:hidden transform  hover:*:translate-x-0.5">Show More</Link>
-
+}
             </div>
         </div>
     )

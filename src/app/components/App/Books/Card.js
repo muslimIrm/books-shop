@@ -8,7 +8,7 @@ const CardBook = ({ image,link , title, description, price, evaluation }) => {
         return str;
     }
     return (
-        <Link href={`/books/${link}`} className="bg-card hover:border-primary border border-transparent max-h-133  transition-all duration-300 cursor-pointer lg:w-[24.3%] xl:w-[19.4%] md:w-[32.4%] max-md:w-[32.4%] max-sm:w-[48.5%] flex flex-col items-center">
+        <Link href={`/books/${link}`} className="bg-card hover:border-primary border border-transparent max-h-133  transition-all duration-300 cursor-pointer lg:min-w-[22.3%] xl:min-w-[18%] md:min-w-[32.4%] max-md:min-w-[32.4%] max-sm:min-w-[48.5%] flex flex-col items-center">
             
             <div className="w-full max-h-7/12 !p-1">
                 <img className="w-full h-full" src={`https://${image}`} />
