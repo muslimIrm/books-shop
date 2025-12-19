@@ -48,7 +48,7 @@ const BooksComponent = ({type}) => {
             setError((p) => { return { ...p, state: false } })
             try {
 
-                const result = await axios.get(`${Url}/books?limit=${params.limit}&page=${params.page}&sort=${search}`)
+                const result = await axios.get(`${Url}/books?limit=${params.limit}&page=${params.page}&sort=${type}`)
                 const data = result.data.Books
                 console.log(result.data)
                 const booksAfterAddData = [...books, ...data]
@@ -79,7 +79,7 @@ const BooksComponent = ({type}) => {
                     </div>
                     <div className="w-full flex flex-col !gap-4">
                         <div className="w-full flex items-center justify-center">
-                            <h1 className='text-3xl max-md:text-2xl font-bold capitalize'>{search}</h1>
+                            <h1 className='text-3xl max-md:text-2xl font-bold capitalize'>{type}</h1>
                         </div>
                         <div className='w-full'>
 
