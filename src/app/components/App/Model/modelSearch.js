@@ -70,7 +70,7 @@ const ModelSearch = ({ open, closeModel }) => {
                                     <Link onClick={closeModel} href={`/books/${p._id}`} className="flex items-center !gap-4">
 
                                         <div className="overflow-hidden max-w-16 max-md:max-w-12 roudned">
-                                            <img src={p.image} className="w-full h-full" />
+                                            <img src={`https://${p.image}} className="w-full h-full" />
                                         </div>
                                         <div>
                                             <h2 className="text-xl max-sm:!text-sm">{p.title}</h2>
