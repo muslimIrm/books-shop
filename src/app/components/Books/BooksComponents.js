@@ -73,7 +73,7 @@ const BooksComponent = ({type}) => {
     return (
         <div className="w-full">
             <div className="container">
-                <div className="w-full flex flex-col !gap-5">
+                <div className="w-full flex flex-col !gap-5 !py-24">
                     <div className="w-full flex items-start">
                         <Link href={"/"} className="flex text-xl items-center !gap-2 text-primary transform  hover:*:-translate-x-0.5"><FaChevronLeft className="transition-all duration-300" /> Back Home</Link>
                     </div>
@@ -84,7 +84,7 @@ const BooksComponent = ({type}) => {
                         <div className='w-full'>
 
 
-                            <div className="flex w-full justify-self-center !gap-x-2 !gap-y-4 flex-wrap">
+                            <div className="flex min-w-full justify-self-center !gap-x-2 !gap-y-4 flex-wrap">
                                 {
                                     books.length > 0 && books.map((book, i) => {
 
