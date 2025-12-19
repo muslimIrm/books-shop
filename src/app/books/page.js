@@ -1,16 +1,22 @@
 "use client"
+
+import { Suspense } from "react";
 import BooksComponent from "../components/Books/BooksComponents";
 import { useSearchParams } from "next/navigation";
-export default function Books() {
-    const searchParams = useSearchParams().get(("type"))
-    const type =
-        typeof searchParams?.type === "string"
-            ? searchParams.type
-            : "lastBooks";
+
+function BooksContent() {
+    const searchParams = useSearchParams();
+    const type = searchParams.get("type");
 
     return (
-        <div className="flex flex-col !gap-6 !pb-4 !pt-23">
-            <BooksComponent type={type} />
-        </div>
+        <BooksComponent type={type} />
+    );
+}
+
+export default function Books() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <BooksContent />
+        </Suspense>
     );
 }
