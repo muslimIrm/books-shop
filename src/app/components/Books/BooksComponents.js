@@ -10,7 +10,7 @@ import Url from '@/app/Url';
 import CardBook from '../App/Books/Card';
 import Spinner from '../Spinner/Spinner';
 const BooksComponent = ({type}) => {
-    const searchParams = useSearchParams()
+    // const searchParams = useSearchParams()
 
     const [spinnerState, setSpinnerState] = useState(true)
     const [Error, setError] = useState({ state: false, message: "" })
