@@ -2,20 +2,20 @@
 
 const { default: Link } = require("next/link");
 import { useSearchParams } from 'next/navigation'
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { FaChevronLeft } from "react-icons/fa";
 import BooksMap from './BooksMap';
 import axios from 'axios';
 import Url from '@/app/Url';
 import CardBook from '../App/Books/Card';
 import Spinner from '../Spinner/Spinner';
-const BooksComponentContent = () => {
+const BooksComponent = ({type}) => {
     const searchParams = useSearchParams()
 
     const [spinnerState, setSpinnerState] = useState(true)
     const [Error, setError] = useState({ state: false, message: "" })
     const [books, setBooks] = useState([])
-    const search = searchParams.get(("type")) || "lastBooks"
+    // const search = searchParams.get(("type")) || "lastBooks"
     const [params, setParams] = useState({ limit: 20, page: 1, totalPages: 1 })
     useEffect(() => {
         const fetch = async () => {
@@ -23,7 +23,7 @@ const BooksComponentContent = () => {
             setError((p) => { return { ...p, state: false } })
             try {
 
-                const result = await axios.get(`${Url}/books?limit=${params.limit}&page=${params.page}&sort=${search}`)
+                const result = await axios.get(`${Url}/books?limit=${params.limit}&page=${params.page}&sort=${type}`)
                 const data = result.data.Books
                 console.log(result.data)
                 const booksAfterAddData = [...books, ...data]
@@ -113,11 +113,4 @@ const BooksComponentContent = () => {
     );
 }
 
-const BooksComponent = ()=>{
-    return(
-        <Suspense>
-            <BooksComponentContent/>
-        </Suspense>
-    )
-}
 export default BooksComponent
