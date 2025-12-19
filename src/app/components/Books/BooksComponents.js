@@ -15,9 +15,10 @@ const BooksComponent = () => {
     const [spinnerState, setSpinnerState] = useState(true)
     const [Error, setError] = useState({ state: false, message: "" })
     const [books, setBooks] = useState([])
-    const search = searchParams.get(("type"))
     const [params, setParams] = useState({ limit: 20, page: 1, totalPages: 1 })
     useEffect(() => {
+
+        const search = searchParams.get(("type"))
         const fetch = async () => {
             setSpinnerState(true)
             setError((p) => { return { ...p, state: false } })
@@ -42,7 +43,7 @@ const BooksComponent = () => {
         }
         fetch()
     }, [params.page])
-    const handleTry = ()=>{
+    const handleTry = () => {
         const fetch = async () => {
             setSpinnerState(true)
             setError((p) => { return { ...p, state: false } })
@@ -97,12 +98,12 @@ const BooksComponent = () => {
                                 spinnerState && <Spinner />
                             }
                             {
-                                Error.state&& <p className='w-full text-center text-red-400'>{Error.message}</p>
+                                Error.state && <p className='w-full text-center text-red-400'>{Error.message}</p>
                             }
 
                             <div className='w-full flex justify-center items-center !py-5'>
                                 {params.totalPages != params.page ? <button onClick={() => setParams((prev) => { return { ...prev, page: prev.page + 1 } })} className='btn !text-2xl !px-15 !py-3'>More</button> : <div></div>}
-                                {Error.state&&  <button onClick={handleTry} className='btn !bg-red-500 !text-xl !px-6 !py-2 '>Try agin</button> }
+                                {Error.state && <button onClick={handleTry} className='btn !bg-red-500 !text-xl !px-6 !py-2 '>Try agin</button>}
                             </div>
                         </div>
                     </div>
